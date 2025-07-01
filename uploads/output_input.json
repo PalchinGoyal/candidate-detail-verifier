@@ -4,13 +4,13 @@
   "correctedData": {
     "name": "Jon",
     "email": "gpalchin10@gmail.com",
-    "phone": "12345",
-    "available": "no",
+    "phone": 12345,
+    "available": "Yes",
     "skills": "nextjs",
     "noticePeriod": "one",
     "experience": 4,
     "preferredLocation": "alwar"
   },
-  "timestamp": "2025-07-01T13:11:49.729994+00:00",
+  "timestamp": "2025-07-01T14:19:39.466600+00:00",
   "errors": {}
 }

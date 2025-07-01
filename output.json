@@ -1,0 +1,15 @@
+{
+  "sessionId": "abc123",
+  "verified": true,
+  "correctedData": {
+    "name": "Jon",
+    "email": "jon123@gmail.com",
+    "phone": "12345",
+    "available": "yes",
+    "skills": "nextjs",
+    "noticePeriod": "one month",
+    "experience": 4,
+    "preferredLocation": "alwar"
+  },
+  "timestamp": "2025-06-30T19:36:37.423521+00:00"
+}
