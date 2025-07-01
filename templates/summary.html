@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Summary</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    .check{font-size:72px;color:var(--accent);text-align:center;margin-bottom:16px}
+  </style>
+</head>
+<body>
+<div class="container" style="text-align:center">
+  <div class="step">
+    <span class="active">1</span> Upload →
+    <span class="active">2</span> Verify →
+    <span class="active">3</span> Summary
+  </div>
+  <div class="check">✔</div>
+  <h1>All set!</h1>
+  <p>Your clean <code>output.json</code> is ready.</p>
+  <a href="{{ url_for('download', outname=outname) }}">
+    <button>Download output.json</button>
+  </a>
+  <br><br>
+  <a href="{{ url_for('upload') }}">↩ Verify another file</a>
+</div>
+</body>
+</html>

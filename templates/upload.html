@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Candidate Verifier – Upload</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+  <h1>Candidate Detail Verifier</h1>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <p class="flash">{{ messages[0] }}</p>
+    {% endif %}
+  {% endwith %}
+  <form method="post" enctype="multipart/form-data">
+    <label class="custom-file">
+      <input type="file" name="inputjson" accept=".json" required
+             onchange="this.parentElement.querySelector('span').textContent=this.files[0].name">
+      <span>➕ Click or drop your <input.json></span>
+    </label>
+    <button type="submit">Start Verification</button>
+  </form>
+</div>
+</body>
+</html>

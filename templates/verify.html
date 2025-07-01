@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Verify Details</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script defer>
+    async function liveValidate(el) {
+      const r = await fetch("/api/validate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          value: el.value,
+          vtype: el.dataset.vtype,
+          required: el.required
+        })
+      }).then(x => x.json());
+      const err = el.nextElementSibling;
+      if (r.ok) {
+        el.classList.remove("invalid");
+        err.textContent = "";
+      } else {
+        el.classList.add("invalid");
+        err.textContent = r.msg;
+      }
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll("input[data-vtype]")
+        .forEach(i => {
+          i.addEventListener("blur", e => liveValidate(e.target));
+          i.addEventListener("input", e => liveValidate(e.target));
+        });
+      const firstErr = document.querySelector(".invalid");
+      if (firstErr) { firstErr.scrollIntoView({ behavior: "smooth", block: "center" }); }
+    });
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="step">
+      <span class="active">1</span> Upload →
+      <span class="active">2</span> Verify →
+      <span>3</span> Summary
+    </div>
+    <h1>Verify &amp; Correct Details</h1>
+    <form method="post">
+      <h2>Pre‑filled fields</h2>
+      {% for k, v in data.fields.items() %}
+      <label>{{ k|capitalize }}
+        <input name="{{k}}" value="{{ form.get(k, v) }}" data-vtype="{{ DEFAULT_FIELD_TYPES.get(k,'text') }}" {% if
+          errors.get(k) %}class="invalid" {% endif %} required>
+        <span class="err">{% if errors.get(k) %}{{ errors[k] }}{% endif %}</span>
+      </label>
+      {% endfor %}
+
+      <h2>Additional questions</h2>
+      {% for q in data.additionalQuestions %}
+      <label>{{ q.questionText }}{% if q.required %} *{% endif %}
+        <input name="{{q.id}}" value="{{ form.get(q.id,'') }}" data-vtype="{{ q.get('type','text') }}" {% if q.required
+          %}required{% endif %} {% if errors.get(q.id) %}class="invalid" {% endif %}>
+        <span class="err">{% if errors.get(q.id) %}{{ errors[q.id] }}{% endif %}</span>
+      </label>
+      {% endfor %}
+
+      <button type="submit">Review Summary</button>
+    </form>
+  </div>
+</body>
+
+</html>
